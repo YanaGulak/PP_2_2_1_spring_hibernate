@@ -31,15 +31,15 @@ public class UserDaoImp implements UserDao {
     @Override
     public void getUserByModelAndSeries(String model, int series) {
         Session session = sessionFactory.openSession();
-       try (session) {
-        String HQL = "from Car c left join fetch c.user where c.model=:model and c.series=:series";
-        Car car = session.createQuery(HQL, Car.class)
-                .setParameter("model", model).setParameter("series", series).getSingleResult();
-        User user = car.getUser();
-        System.out.println(user);
-    } catch (RuntimeException e) {
-           System.out.println("Warning! User with car " + model + " " + series + " is not found");
-       }
+        try (session) {
+            String HQL = "from Car c left join fetch c.user where c.model=:model and c.series=:series";
+            Car car = session.createQuery(HQL, Car.class)
+                    .setParameter("model", model).setParameter("series", series).getSingleResult();
+            User user = car.getUser();
+            System.out.println(user);
+        } catch (RuntimeException e) {
+            System.out.println("Warning! User with car " + model + " " + series + " is not found");
+        }
     }
 
 }
